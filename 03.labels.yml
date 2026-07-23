@@ -1,0 +1,16 @@
+apiversion: v1
+kind: Pod
+metadata:
+  name: labels
+  labels:
+    app: labels
+    purpose: demonstrate-labels
+    tire: test
+    environment: dev
+spec:
+  containers:
+    - name: labels-container
+      image: nginx:latest
+
+    - name: labels-container2
+      image: alpine:latest

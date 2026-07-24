@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-lb
+  labels:
+    purpose: loadbalancer-demon
+spec:
+  type: LoadBalancer
+  selector:
+    purpose: loadbalancer-demon
+    project: ecom
+    environment: Dev
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+    
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-lb
+  labels:
+    purpose: loadbalancer-demon
+    project: ecom
+    environment: Dev
+spec:
+  containers:
+    - name: mysecret-container
+      image: nginx

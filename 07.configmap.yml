@@ -1,0 +1,13 @@
+apiVersion: lab-1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+labels:
+    app: my-app
+    purpose: demonstrate-configmap
+data:
+  config1: "32"
+  config2: "12"
+  text: |
+    This is a multi-line text value
+    that can be used in the application.

@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-lb
+  name: nginix-lb
   labels:
     purpose: loadbalancer-demon
     project: ecom

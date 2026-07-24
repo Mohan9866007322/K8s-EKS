@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ReplicaSet
+metadata:
+  name: replicaset-demo
+  labels:
+    purpose: replicaset-demon
+    project: ecom
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      purpose: replicaset-demon
+      project: ecom
+      app: nginx
+  template:
+    metadta: 
+    labels:
+      purpose: replicaset-demon
+      project: ecom
+      app: nginx
+      
+    specs: 
+      containers:
+        - name: nginx
+          image: nginx
+          
+

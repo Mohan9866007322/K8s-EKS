@@ -9,7 +9,6 @@ spec:
   containers:
     - name: Ecom-container
       image: nginx:latest
-      ports:
-        - containerPort: 80
+
     - name: Ecom-container2
       image: alpine:latest

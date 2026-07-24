@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Nginx
+  name: nginx                  # Best practice: keep metadata names lowercase
   labels:
     purpose: deployment-demon
     project: ecom
@@ -20,6 +20,6 @@ spec:
         project: ecom
         app: nginx
     spec:               
-      container:
+      containers:             
         - name: nginx
           image: nginx:stable-perl

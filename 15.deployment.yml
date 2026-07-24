@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Nginx
+  labels:
+    purpose: deployment-demon
+    project: ecom
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      purpose: deployment-demon
+      project: ecom
+      app: nginx
+  template:
+    metadata:            
+      labels:
+        purpose: deployment-demon
+        project: ecom
+        app: nginx
+    spec:               
+      containdeplyment-demo:
+        - name: nginx
+          image: nginx:stable-perl

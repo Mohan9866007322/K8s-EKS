@@ -14,12 +14,12 @@ spec:
       project: ecom
       app: nginx
   template:
-    metadta: 
+    metadata:            
       labels:
         purpose: replicaset-demon
         project: ecom
         app: nginx
-    specs: 
+    spec:               
       containers:
         - name: nginx
           image: nginx

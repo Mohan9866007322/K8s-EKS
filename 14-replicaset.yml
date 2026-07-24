@@ -15,14 +15,13 @@ spec:
       app: nginx
   template:
     metadta: 
-    labels:
-      purpose: replicaset-demon
-      project: ecom
-      app: nginx
-      
+      labels:
+        purpose: replicaset-demon
+        project: ecom
+        app: nginx
     specs: 
       containers:
         - name: nginx
           image: nginx
-          
+
 

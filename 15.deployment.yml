@@ -20,6 +20,6 @@ spec:
         project: ecom
         app: nginx
     spec:               
-      containdeplyment-demo:
+      container:
         - name: nginx
           image: nginx:stable-perl

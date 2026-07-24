@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: nginx-nodeport
   labels:
-    purpose: service-demon
+    purpose: nodeport-demon
 spec:
+  type: NodePort
   selector:
-    purpose: service-demon
+    purpose: nodeport-demon
     project: ecom
     environment: Dev
   ports:
@@ -20,13 +21,10 @@ kind: Pod
 metadata:
   name: nginix
   labels:
-    purpose: service-demon
+    purpose: nodeport-demon
     project: ecom
     environment: Dev
 spec:
   containers:
     - name: mysecret-container
       image: nginx
-      envFrom:
-        - secretRef:
-            name: my-secret

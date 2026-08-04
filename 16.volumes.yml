@@ -23,4 +23,21 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 200Mi
+      storage: 1Gi
+---
+apiVersion: v1
+kind: nginx
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: ebs-volume
+  volumes:
+  - name: ebs-volume
+    persistentVolumeClaim:
+      claimName: ebs-1 
+

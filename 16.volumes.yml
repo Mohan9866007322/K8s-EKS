@@ -10,15 +10,15 @@ spec:
   csi:
     driver: ebs.csi.aws.com
     fsType: ext4
-    volumeHandle: vol-01871ca0e67fa4752
+    volumeHandle: vol-01871ca0e67fa4752  ##will change based on the volume created in aws console
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ebs-1
+  name: ebs-pvc-1
 spec:
   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: ebs-1a
+  volumeName: ebs-pv-1
   accessModes:
   - ReadWriteOnce
   resources:
@@ -39,5 +39,5 @@ spec:
   volumes:
   - name: ebs-volume
     persistentVolumeClaim:
-      claimName: ebs-1 
+      claimName: ebs-pvc-1 
 

@@ -1,13 +1,12 @@
----
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
   name: ecom-1
-  region: us-west-1
+  region: us-west-2
 
 managedNodeGroups:
   - name: managed-ng-public
-    instanceType: [ "m5.large" , "c5.large" , "c3.large" ]
-    desiredCapacity: 2
+    instanceType: t2.medium
+    desiredCapacity: 4
     spot: true

@@ -30,6 +30,8 @@ kind: Pod
 metadata:
   name: nginx
 spec:
+  nodeSelector:
+    topology.kubernetes.io/zone=us-west-2c
   containers:
   - name: nginx
     image: nginx

@@ -1,12 +1,29 @@
-apiVersion: eksctl.io/v1alpha5
-kind: ClusterConfig
+# apiVersion: eksctl.io/v1alpha5
+# kind: ClusterConfig
 
-metadata:
-  name: ecom-1
-  region: us-west-2
+# metadata:
+#   name: ecom-1
+#   region: us-west-2
 
-managedNodeGroups:
-  - name: managed-ng-public
-    instanceType: t2.medium
-    desiredCapacity: 4
-    spot: true
+# managedNodeGroups:
+#   - name: managed-ng-public
+#     instanceType: t2.medium
+#     desiredCapacity: 4
+#     spot: true
+
+
+# or use below shell command to create cluster in aws cli
+rm -f eks.yml
+
+echo "apiVersion: eksctl.io/v1alpha5" >> eks.yml
+echo "kind: ClusterConfig" >> eks.yml
+echo "" >> eks.yml
+echo "metadata:" >> eks.yml
+echo -e "\x20\x20name: ecom-1" >> eks.yml
+echo -e "\x20\x20region: us-west-2" >> eks.yml
+echo "" >> eks.yml
+echo "managedNodeGroups:" >> eks.yml
+echo -e "\x20\x20- name: managed-ng-public" >> eks.yml
+echo -e "\x20\x20\x20\x20instanceType: t2.medium" >> eks.yml
+echo -e "\x20\x20\x20\x20desiredCapacity: 4" >> eks.yml
+echo -e "\x20\x20\x20\x20spot: true" >> eks.yml

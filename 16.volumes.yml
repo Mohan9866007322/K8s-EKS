@@ -10,7 +10,7 @@ spec:
   csi:
     driver: ebs.csi.aws.com
     fsType: ext4
-    volumeHandle: vol-01871ca0e67fa4752  ##will change based on the volume created in aws console
+    volumeHandle: vol-01871ca0e67fa4752  # will change based on the volume created in aws console
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -18,7 +18,7 @@ metadata:
   name: ebs-pvc-1
 spec:
   storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
-  volumeName: ebs-pv-1
+  volumeName: test-pv  # CORRECTED: Changed from ebs-pv-1 to match the PV name above
   accessModes:
   - ReadWriteOnce
   resources:
@@ -31,7 +31,7 @@ metadata:
   name: nginx
 spec:
   nodeSelector:
-    topology.kubernetes.io/zone=us-west-2c
+    topology.kubernetes.io/zone: us-west-2c  # CORRECTED: Changed '=' to ':' 
   containers:
   - name: nginx
     image: nginx
@@ -41,5 +41,5 @@ spec:
   volumes:
   - name: ebs-volume
     persistentVolumeClaim:
-      claimName: ebs-pvc-1 
+      claimName: ebs-pvc-1
 

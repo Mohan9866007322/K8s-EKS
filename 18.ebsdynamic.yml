@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ecom-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    purpose: ebs-dynamic-demo
+    project: ebs-csi
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-west-2c  # CORRECTED: Changed '=' to ':' 
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: ebs-volume
+  volumes:
+  - name: ebs-volume
+    persistentVolumeClaim:
+      claimName: ecom-ebs-pvc

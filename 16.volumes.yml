@@ -34,7 +34,7 @@ metadata:
     project: ebs-csi
 spec:
   nodeSelector:
-    topology.kubernetes.io/zone: us-west-2a  # CORRECTED: Changed '=' to ':' 
+    topology.kubernetes.io/zone: us-west-2c  # CORRECTED: Changed '=' to ':' 
   containers:
   - name: nginx
     image: nginx

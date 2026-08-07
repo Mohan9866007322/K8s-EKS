@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ecom-efs-pv
+spec:
+  capacity:
+    storage: 5Gi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteonce
+  storageClassName: ""  #should be empty for static provisioning
+  csi:  
+    driver: efs.csi.aws.com
+    volumeHandle: fs-0e1f2a3b4c5d6e7f8  # Replace with your EFS file system ID
+---
+apiVersion: v1
+kind: PersistentVolumeClaim 
+metadata:
+  name: ecom-efs-pv 
+spec:
+  accessModes:
+    - ReadWriteonce 
+  storageClassName: ""  #should be empty for static provisioning
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    purpose: demonstrate-efs-csi
+    project: efs-csi
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: efs-volume
+  volumes:
+  - name: efs-volume
+    persistentVolumeClaim:
+      claimName: efs-pvc-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-lb
+  labels:
+    purpose: demonstrate-efs-csi
+    project: efs-csi
+spec:
+  type: LoadBalancer
+  selector:
+    purpose: demonstrate-efs-csi
+    project: efs-csi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80 

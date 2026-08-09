@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mulesoft-prod-app
+  namespace: production
+  labels:
+    app: mulesoft
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mulesoft
+  template:
+    metadata:
+      labels:
+        app: mulesoft
+    spec:
+      # Prevent pods from scheduling on the same node
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - mulesoft
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: mulesoft-runtime
+        image: your-acr.azurecr.io/mulesoft-app:v1.0.0
+        ports:
+        - containerPort: 8081
+        # Critical for MuleSoft: Define exact limits to prevent OOM Kills
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        # Readiness/Liveness probes ensure traffic only hits healthy replicas
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8081
+          initialDelaySeconds: 60
+          periodSeconds: 15

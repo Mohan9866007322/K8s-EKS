@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: my-configmap
 labels:
-    app: my-app
-    purpose: demonstrate-configmap
+  app: my-app
+  purpose: demonstrate-configmap
 data:
   config1: "32"
   config2: "12"

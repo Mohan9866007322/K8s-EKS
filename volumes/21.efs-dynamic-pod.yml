@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: PersistentVolumeClaim 
+metadata:
+  name: efs-dynamic-pvc 
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "efs-ecom"
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    purpose: efs-dynamic-pvc
+    project: efs-csi
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      name: efs-volume
+  volumes:
+  - name: efs-volume
+    persistentVolumeClaim:
+      claimName: efs-dynamic-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-lb
+  labels:
+    purpose: efs-dynamic-pvc
+    project: efs-csi
+spec:
+  type: LoadBalancer
+  selector:
+    purpose: efs-dynamic-pvc
+    project: efs-csi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

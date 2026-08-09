@@ -1,0 +1,13 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-ecom
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap # Use efs-ap for EFS Access Points or efs for root access
+  # Optional parameters for EFS Access Points
+  fileSystemId: fs-0e1f2a3b4c5d6e7f8 # Replace with your EFS file system ID
+  directoryPerms: "700"
+  gidRangeStart: "1000" # optional
+  gidRangeEnd: "2000" # optional
+  basePath: "/ecom" # optional
